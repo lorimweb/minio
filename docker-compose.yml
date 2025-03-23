@@ -1,0 +1,15 @@
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"  # MinIO API port
+      - "9001:9001"  # MinIO Console port
+    env_file:
+      - .env
+    volumes:
+      - minio_data:/data  # Persistent storage for MinIO data
+    command: server /data --console-address ":9001"  # Start MinIO server
+
+volumes:
+  minio_data:  # Define a volume for MinIO data persistence
